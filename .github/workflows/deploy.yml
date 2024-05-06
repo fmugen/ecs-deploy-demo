@@ -1,0 +1,42 @@
+name: ECS-DEPLOY-DEMO
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      # setup phase
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: setup ubuntu
+        run: sudo apt-get update && sudo apt-get install -y ghostscript
+      - name: install package
+        run: curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x copilot && sudo mv copilot /usr/local/bin/copilot
+      # test phase
+      #- name: execute test
+      #  run: yarn --cwd sls test
+      #  env:
+      #    ENV1_FOR_TEST: ${{ secrets.ENV1_FOR_TEST }}
+      #    ENV2_FOR_TEST: ${{ secrets.ENV2_FOR_TEST }}
+      # deploy phase
+      - if: ${{ success() }}
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-region: ap-northeast-1
+          role-to-assume: arn:aws:iam::590184131606:role/GitHubOidcRole
+      - name: deploy
+        run: copilot deploy
