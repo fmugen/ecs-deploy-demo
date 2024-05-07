@@ -26,9 +26,7 @@ jobs:
       - name: install package
         run: |
           mkdir -p $GITHUB_WORKSPACE/bin
-          echo "start download!"
           curl -Lo copilot-linux https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux
-          echo "finish download!"
           chmod +x copilot-linux
           mv copilot-linux $GITHUB_WORKSPACE/bin
           echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
@@ -43,6 +41,6 @@ jobs:
         uses: aws-actions/configure-aws-credentials@master
         with:
           aws-region: ap-northeast-1
-          role-to-assume: arn:aws:iam::590184131606:role/GitHubOidcRole
+          role-to-assume: arn:aws:iam::590184131606:role/OidcEcsRole
       - name: deploy
         run: copilot deploy
