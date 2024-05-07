@@ -19,13 +19,17 @@ jobs:
     steps:
       # setup phase
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
       - name: setup ubuntu
-        run: sudo apt-get update && sudo apt-get install -y ghostscript
+        run: |
+          sudo apt-get update && \
+          sudo apt-get install -y ghostscript
       - name: install package
-        run: curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x copilot && sudo mv copilot /usr/local/bin/copilot
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bin
+          curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && \
+          chmod +x copilot && \
+          sudo mv copilot /usr/local/bin/copilot && \
+          echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
       # test phase
       #- name: execute test
       #  run: yarn --cwd sls test
