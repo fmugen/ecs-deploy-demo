@@ -27,7 +27,7 @@ jobs:
         run: |
           mkdir -p $GITHUB_WORKSPACE/bin
           echo "start download!"
-          curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux
+          sudo curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux
           echo "finish download!"
           chmod +x copilot
           sudo mv copilot $GITHUB_WORKSPACE/bin
