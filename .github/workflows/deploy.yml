@@ -28,7 +28,7 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/bin
           curl -Lo copilot-linux https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux
           chmod +x copilot-linux
-          mv copilot-linux $GITHUB_WORKSPACE/bin/copilot
+          mv copilot-linux $GITHUB_WORKSPACE/bin
           echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
       # test phase
       #- name: execute test
