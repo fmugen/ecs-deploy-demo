@@ -1,4 +1,4 @@
-name: ECS-DEPLOY-DEMO
+name: AWS ECS-DEPLOY-DEMO
 
 on:
   push:
