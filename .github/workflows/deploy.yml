@@ -43,4 +43,4 @@ jobs:
           aws-region: ap-northeast-1
           role-to-assume: arn:aws:iam::590184131606:role/OidcEcsRole
       - name: deploy
-        run: copilot deploy
+        run: copilot app upgrade
